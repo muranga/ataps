@@ -21,3 +21,5 @@ build
 # Celerybeat scheduler file:
 celerybeat-schedule
 .idea
+
+.coverage

@@ -4,8 +4,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    {# keep this right after
-<head> #}
     <title>{% block title %}RapidSMS{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,7 +14,7 @@
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/forms.css"/>
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/icons.css"/>
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css"/>
-    <!--<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/base.css"/>-->
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/base.css"/>
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css"/>
     {% endblock %}
 
@@ -33,26 +31,23 @@
 </head>
 
 <body>
-<div id="wrap"> {# Wrap everything but the footer so we can push the footer to the bottom #}
+<div id="wrap">
 
     {% block header %}
     <div class="navbar navbar-blue navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
 
-                {# .btn-navbar is used as the toggle for collapsed navbar content #}
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
 
-                {# Be sure to leave the brand out there if you want it shown #}
                 <a href="/" class="brand">
                     ATAPS
                 </a>
 
-                {# Everything you want hidden at 940px or less, place within here #}
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         {% include "rapidsms/_nav_bar.html" %}
@@ -81,12 +76,10 @@
             </div>
         </div>
     </div>
-    {% block page_tabs %}{# FIXME - putting anything here won't do anything useful. If anything is using page_tabs, we
-    should probably move this up into the navbar collapsable area. #}
+    {% block page_tabs %}
     {% endblock %}
     {% endblock %}
 
-    {# begin page content - has its own div container so we can add top padding #}
     <div class="container" id="mainpage">
         {% block breadcrumbs %}{% if breadcrumbs %}
         <div class="row-fluid">{% for caption, url in breadcrumbs %}
@@ -113,15 +106,13 @@
     </div>
 </div>
 <div id="push"></div>
-{# important to push footer down #}
-</div>{# end wrap - everything above the footer #}
+</div>
 
 
 <div id="footer">
     <div class="container">
         {% block footer %}
         <div class="row-fluid">
-            {# if the height of this changes, the CSS in base.css will have to be changed to match #}
             <p>
 
             </p>

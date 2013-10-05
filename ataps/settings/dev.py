@@ -58,6 +58,7 @@ CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
 INSTALLED_APPS += (
     'debug_toolbar',
+    'django_nose',
 )
 
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
@@ -70,3 +71,10 @@ MIDDLEWARE_CLASSES += (
 
 DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
 ########## END TOOLBAR CONFIGURATION
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+SOUTH_TESTS_MIGRATE = False
+
+NOSE_ARGS = [
+    '--cover-package=ataps',
+    '--with-coverage',
+]

@@ -235,6 +235,8 @@ LOGIN_REDIRECT_URL = '/'
 RAPIDSMS_HANDLERS = (
     'rapidsms.contrib.echo.handlers.echo.EchoHandler',
     'rapidsms.contrib.echo.handlers.ping.PingHandler',
+    "rapidsms.contrib.registration.handlers.language.LanguageHandler",
+    "rapidsms.contrib.registration.handlers.register.RegisterHandler",
 )
 
 RAPIDSMS_ROUTER = "rapidsms.router.blocking.BlockingRouter"
