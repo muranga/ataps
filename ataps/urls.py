@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from ataps.apps.mothers_calendar.backends import SMSSyncBackendView
 from ataps.apps.mothers_calendar.views import HomeView
 
 
@@ -18,6 +19,7 @@ urlpatterns = patterns('',
                        (r'^messagelog/', include('rapidsms.contrib.messagelog.urls')),
                        (r'^messaging/', include('rapidsms.contrib.messaging.urls')),
                        (r'^registration/', include('rapidsms.contrib.registration.urls')),
+		       url(r'^backends/smssync/$', SMSSyncBackendView.as_view()),
 
                        # Third party URLs
                        (r'^selectable/', include('selectable.urls')),

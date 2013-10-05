@@ -225,6 +225,9 @@ INSTALLED_BACKENDS = {
     "message_tester": {
         "ENGINE": "rapidsms.backends.database.DatabaseBackend",
     },
+    "smssync": {
+	"ENGINE": "ataps.apps.mothers_calendar.backends.OutGoingSmsBackend",
+    },
 }
 
 LOGIN_REDIRECT_URL = '/'
@@ -233,6 +236,8 @@ RAPIDSMS_HANDLERS = (
     'rapidsms.contrib.echo.handlers.echo.EchoHandler',
     'rapidsms.contrib.echo.handlers.ping.PingHandler',
 )
+
+RAPIDSMS_ROUTER = "rapidsms.router.blocking.BlockingRouter"
 ########## END APP CONFIGURATION
 
 
