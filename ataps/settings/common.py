@@ -1,6 +1,5 @@
 """Common settings and globals."""
 
-
 from datetime import timedelta
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
@@ -36,7 +35,7 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('Your Name', 'your_email@example.com'),
+    ('James Muranga', 'your_email@example.com'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -48,12 +47,12 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-	'ENGINE': 'django.db.backends.',
-	'NAME': '',
-	'USER': '',
-	'PASSWORD': '',
-	'HOST': '',
-	'PORT': '',
+        'ENGINE': 'django.db.backends.',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 ########## END DATABASE CONFIGURATION
@@ -61,7 +60,7 @@ DATABASES = {
 
 ########## GENERAL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
-TIME_ZONE = 'America/Los_Angeles'
+TIME_ZONE = 'Africa/Kampala'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = 'en-us'
@@ -184,7 +183,7 @@ DJANGO_APPS = (
 
     # Useful template tags:
     'django.contrib.humanize',
-
+    'django_admin_bootstrapped',
     # Admin panel and documentation:
     'django.contrib.admin',
     'django.contrib.admindocs',
@@ -199,6 +198,20 @@ THIRD_PARTY_APPS = (
 
     # Asynchronous task queue:
     'djcelery',
+
+    "django_tables2",
+    "selectable",
+    # RapidSMS
+    "rapidsms",
+    "rapidsms.backends.database",
+    "rapidsms.contrib.handlers",
+    "rapidsms.contrib.httptester",
+    "rapidsms.contrib.messagelog",
+    "rapidsms.contrib.messaging",
+    "rapidsms.contrib.registration",
+    "rapidsms.contrib.echo",
+    "rapidsms.contrib.default",
+
 )
 
 LOCAL_APPS = (
@@ -206,6 +219,19 @@ LOCAL_APPS = (
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+INSTALLED_BACKENDS = {
+    "message_tester": {
+        "ENGINE": "rapidsms.backends.database.DatabaseBackend",
+    },
+}
+
+LOGIN_REDIRECT_URL = '/'
+
+RAPIDSMS_HANDLERS = (
+    'rapidsms.contrib.echo.handlers.echo.EchoHandler',
+    'rapidsms.contrib.echo.handlers.ping.PingHandler',
+)
 ########## END APP CONFIGURATION
 
 
@@ -215,27 +241,27 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'filters': {
-    'require_debug_false': {
-	'()': 'django.utils.log.RequireDebugFalse'
-	}
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
     },
     'handlers': {
-	'mail_admins': {
-	    'level': 'ERROR',
-	    'filters': ['require_debug_false'],
-	    'class': 'django.utils.log.AdminEmailHandler'
-	},
-	'console': {
-	    'level': 'DEBUG',
-	    'class': 'logging.StreamHandler'
-	}
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler'
+        }
     },
     'loggers': {
-	'django.request': {
-	    'handlers': ['mail_admins', 'console'],
-	    'level': 'ERROR',
-	    'propagate': True,
-	},
+        'django.request': {
+            'handlers': ['mail_admins', 'console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     }
 }
 ########## END LOGGING CONFIGURATION
