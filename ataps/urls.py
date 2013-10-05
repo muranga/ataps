@@ -21,3 +21,9 @@ urlpatterns = patterns('',
                        # Third party URLs
                        (r'^selectable/', include('selectable.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+#if not settings.DEBUG:
+#    urlpatterns += patterns('',
+#                            (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+#                             {'document_root': settings.STATIC_ROOT}),
+#    )
