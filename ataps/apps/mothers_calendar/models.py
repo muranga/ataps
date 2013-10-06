@@ -1,6 +1,14 @@
 from django.db import models
 from rapidsms.models import Contact
 
+WEEK = "WEEK"
+
+GENERAL = "general"
+
+NUMERICAL = "numerical"
+
+YES_NO = "yes_no"
+
 
 class WeekNumber(models.Model):
     week_number = models.IntegerField()
@@ -19,9 +27,10 @@ class Message(models.Model):
 
 class QuestionType(models.Model):
     QUESTIONTYPE = (
-        ("yes_no", "Yes or No Response"),
-        ("numerical", "Numerical Response" ),
-        ("general", "Generic Response"),
+        (YES_NO, "Yes or No Response"),
+        (NUMERICAL, "Numerical Response" ),
+        (GENERAL, "Generic Response"),
+        (WEEK, "Numerical Response"),
 
     )
 
@@ -37,12 +46,24 @@ class Question(models.Model):
     question_text = models.CharField(max_length=120)
 
     def __str__(self):
-        return self.q_type
+        return self.question_text
 
 
 class Mother(models.Model):
     contact_number = models.CharField(max_length=120, unique=True)
-    week_number = models.IntegerField(default=0)
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
+    contact = models.ForeignKey(Contact, related_name="mothers")
+    week = models.ForeignKey(WeekNumber, related_name="mothers", default=0)
+
+
+class QuestionResponse(models.Model):
     contact = models.ForeignKey(Contact)
+    response = models.CharField(max_length=255, null=True, blank=True)
+    responded = models.BooleanField(default=False)
+    question = models.ForeignKey(Question, related_name="responses")
+    created_on = models.DateTimeField(auto_now_add=True)
+    modified_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = (("question", "contact"),)
