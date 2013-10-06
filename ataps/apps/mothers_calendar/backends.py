@@ -31,7 +31,7 @@ class OutGoingSmsBackend(BackendBase):
         print url
         if send_sms:
             r = requests.post(url, verify=False)
-        print r.text
+            print r.text
 
 
 class SMSSyncBackendView(GenericHttpBackendView):

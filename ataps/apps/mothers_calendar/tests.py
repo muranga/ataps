@@ -1,7 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from django_webtest import WebTest
-from ataps.apps.mothers_calendar.factories import MotherFactory, ContactFactory
+from rapidsms.models import Backend, Connection
+from ataps.apps.mothers_calendar.factories import MotherFactory, ContactFactory, QuestionTypeFactory, QuestionFactory
 from ataps.apps.mothers_calendar.models import QuestionResponse
 from ataps.apps.mothers_calendar.tasks import query_number_of_weeks, WEEKS_PREGNANT_ARE_YOU_QUESTION
 
@@ -24,3 +25,22 @@ class SMSSyncBackendView(WebTest):
         query_number_of_weeks(mother)
         self.assertEquals(1, QuestionResponse.objects.filter(contact=mother.contact, sent=False,
                                                              question__question_text=WEEKS_PREGNANT_ARE_YOU_QUESTION).count())
+
+    def test_that_when_a_question_has_been_sent_and_has_not_yet_been_responded_to_it_receives_a_message_to_the_user(
+            self):
+        backend, created = Backend.objects.get_or_create(name="smssync")
+        contact = ContactFactory.build()
+        contact.save()
+        connection, created = Connection.objects.get_or_create(identity="0783010831", backend=backend)
+        connection.contact = contact
+        connection.save()
+        q_type = QuestionTypeFactory.build()
+        q_type.save()
+        question = QuestionFactory.build(question_type=q_type)
+        question.save()
+        resp = QuestionResponse.objects.create(contact=contact, question=question, sent=True)
+        message = "hj"
+        index = self.app.post(reverse("smssync-backend"), {'message': message, 'from': '0783010831'})
+        self.assertEquals(message, QuestionResponse.objects.get(id=resp.id).response)
+
+

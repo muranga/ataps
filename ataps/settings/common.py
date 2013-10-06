@@ -311,3 +311,5 @@ COMPRESS_JS_FILTERS = [
 SMS_USER = environ.get('SMS_USER')
 SMS_PASSWORD = environ.get('SMS_PASSWORD')
 sms_code = "0793330319"
+
+DEFAULT_RESPONSE = "Thank You for using ATAPS"
