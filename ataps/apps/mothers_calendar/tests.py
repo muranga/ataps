@@ -3,7 +3,7 @@ from django.utils import simplejson
 from django_webtest import WebTest
 from rapidsms.models import Backend, Connection
 from ataps.apps.mothers_calendar.factories import MotherFactory, ContactFactory, QuestionTypeFactory, QuestionFactory
-from ataps.apps.mothers_calendar.models import QuestionResponse
+from ataps.apps.mothers_calendar.models import QuestionResponse, Mother
 from ataps.apps.mothers_calendar.tasks import query_number_of_weeks, WEEKS_PREGNANT_ARE_YOU_QUESTION
 
 
@@ -42,5 +42,11 @@ class SMSSyncBackendView(WebTest):
         message = "hj"
         index = self.app.post(reverse("smssync-backend"), {'message': message, 'from': '0783010831'})
         self.assertEquals(message, QuestionResponse.objects.get(id=resp.id).response)
+
+    def test_that_when_you_send_join_you_get_registered_as_a_mother(self):
+        number = '0783010831'
+        index = self.app.post(reverse("smssync-backend"), {'message': "join ataps", 'from': number})
+        self.assertEquals(1, Mother.objects.filter(contact_number=number).count())
+
 
 

@@ -12,8 +12,14 @@ class MotherRegistrationHandler(KeywordHandler):
 
     def handle(self, text):
         contact, contact_created = Contact.objects.get_or_create(name=self.msg.connection.identity)
-        mother, mother_created = Mother.objects.get_or_create(contact_number=self.msg.connection.identity,
-                                                              contact=contact)
+        try:
+            mother = Mother.objects.get(contact_number=self.msg.connection.identity)
+            mother.contact = contact
+            mother.save()
+        except Mother.DoesNotExist:
+            mother = Mother.objects.create(contact_number=self.msg.connection.identity, contact=contact)
+        mother, mother_created = Mother.objects.get_or_create(contact_number=self.msg.connection.identity)
+
         self.msg.connection.contact = contact
         self.msg.connection.save()
         if mother_created:
