@@ -17,6 +17,7 @@ class MotherRegistrationHandler(KeywordHandler):
             mother = Mother.objects.get(contact_number=self.msg.connection.identity)
             mother.contact = contact
             mother.save()
+            mother_created = False
         except Mother.DoesNotExist:
             mother = Mother.objects.create(contact_number=self.msg.connection.identity, contact=contact, week=week)
             mother_created = True
