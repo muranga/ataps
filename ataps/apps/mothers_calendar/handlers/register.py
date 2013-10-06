@@ -26,6 +26,6 @@ class MotherRegistrationHandler(KeywordHandler):
         self.msg.connection.save()
         if mother_created:
             self.respond("Thank you for registering with ATAPS !")
-            query_number_of_weeks.delay(mother)
+	    query_number_of_weeks(mother)
         else:
             self.respond("Thank you. You are already registered with ATAPS !")

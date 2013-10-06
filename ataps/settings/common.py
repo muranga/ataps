@@ -283,7 +283,7 @@ CELERY_TASK_RESULT_EXPIRES = timedelta(minutes=30)
 CELERY_CHORD_PROPAGATES = True
 
 # See: http://celery.github.com/celery/django/
-setup_loader()
+#setup_loader()
 ########## END CELERY CONFIGURATION
 
 
