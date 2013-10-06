@@ -25,10 +25,12 @@ class OutGoingSmsBackend(BackendBase):
         number = clean_number(identities[0])
         message = text
         code = getattr(settings, 'sms_code', "ATAPS")
+        send_sms = getattr(settings, 'SEND_SMS', False)
         url = "https://secure.jolis.net/jc/sms/interface.php?username=%s&password=%s&command=sendsinglesms&destination=%s&message=%s&source=%s" % (
             username, password, number, quote_plus(message), code)
         print url
-        r = requests.post(url, verify=False)
+        if send_sms:
+            r = requests.post(url, verify=False)
         print r.text
 
 

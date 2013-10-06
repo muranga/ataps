@@ -78,3 +78,5 @@ NOSE_ARGS = [
     '--cover-package=ataps',
     '--with-coverage',
 ]
+
+SEND_SMS = False

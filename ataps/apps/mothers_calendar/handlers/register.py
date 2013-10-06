@@ -1,6 +1,7 @@
 from rapidsms.contrib.handlers import KeywordHandler
 from rapidsms.models import Contact
 from ataps.apps.mothers_calendar.models import Mother
+from ataps.apps.mothers_calendar.tasks import query_number_of_weeks
 
 
 class MotherRegistrationHandler(KeywordHandler):
@@ -17,5 +18,6 @@ class MotherRegistrationHandler(KeywordHandler):
         self.msg.connection.save()
         if mother_created:
             self.respond("Thank you for registering with ATAPS !")
+            query_number_of_weeks.delay(mother)
         else:
             self.respond("Thank you. You are already registered with ATAPS !")

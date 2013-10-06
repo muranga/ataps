@@ -13,14 +13,11 @@ urlpatterns = patterns('',
 
                        (r'^accounts/', include('rapidsms.urls.login_logout')),
                        url(r'^$', HomeView.as_view(), name='rapidsms-dashboard'),
-
                        (r'^httptester/', include('rapidsms.contrib.httptester.urls')),
-
                        (r'^messagelog/', include('rapidsms.contrib.messagelog.urls')),
                        (r'^messaging/', include('rapidsms.contrib.messaging.urls')),
                        (r'^registration/', include('rapidsms.contrib.registration.urls')),
-                       url(r'^backends/smssync/$', SMSSyncBackendView.as_view()),
-
+                       url(r'^backends/smssync/$', SMSSyncBackendView.as_view(), name="smssync-backend"),
                        (r'^selectable/', include('selectable.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

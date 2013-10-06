@@ -5,3 +5,4 @@ django-webtest
 django-nose
 mock
 coverage
+factory_boy
