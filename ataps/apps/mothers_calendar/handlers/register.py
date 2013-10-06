@@ -1,6 +1,6 @@
 from rapidsms.contrib.handlers import KeywordHandler
 from rapidsms.models import Contact
-from ataps.apps.mothers_calendar.models import Mother
+from ataps.apps.mothers_calendar.models import Mother, WeekNumber
 from ataps.apps.mothers_calendar.tasks import query_number_of_weeks
 
 
@@ -12,13 +12,14 @@ class MotherRegistrationHandler(KeywordHandler):
 
     def handle(self, text):
         contact, contact_created = Contact.objects.get_or_create(name=self.msg.connection.identity)
+        week, created = WeekNumber.objects.get_or_create(week_number=0)
         try:
             mother = Mother.objects.get(contact_number=self.msg.connection.identity)
             mother.contact = contact
             mother.save()
         except Mother.DoesNotExist:
-            mother = Mother.objects.create(contact_number=self.msg.connection.identity, contact=contact)
-        mother, mother_created = Mother.objects.get_or_create(contact_number=self.msg.connection.identity)
+            mother = Mother.objects.create(contact_number=self.msg.connection.identity, contact=contact, week=week)
+            mother_created = True
 
         self.msg.connection.contact = contact
         self.msg.connection.save()
