@@ -15,7 +15,7 @@ class WeekNumber(models.Model):
     week_number = models.IntegerField()
 
     def __str__(self):
-        return self.week_number
+        return str(self.week_number)
 
 
 class Message(models.Model):
@@ -56,6 +56,9 @@ class Mother(models.Model):
     modified_on = models.DateTimeField(auto_now=True)
     contact = models.ForeignKey(Contact, related_name="mothers")
     week = models.ForeignKey(WeekNumber, related_name="mothers", default=0)
+
+    def __str__(self):
+        return self.contact_number
 
 
 class QuestionResponse(models.Model):
