@@ -10,6 +10,6 @@ class SMSSyncBackendView(WebTest):
         self.assertEquals("false", data['payload']['success'])
 
     def test_sms_sync_view_responds_with_true_if_valid_information_is_sent(self):
-        index = self.app.post(reverse("smssync-backend"), {'message': "hello", 'from': '999'})
+        index = self.app.post(reverse("smssync-backend"), {'message': "hj", 'from': '999'})
         data = simplejson.loads(index.content)
         self.assertEquals("true", data['payload']['success'])

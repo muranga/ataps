@@ -1,6 +1,7 @@
 """Common settings and globals."""
 
 from datetime import timedelta
+from os import environ
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 
@@ -306,3 +307,7 @@ COMPRESS_JS_FILTERS = [
     'compressor.filters.template.TemplateFilter',
 ]
 ########## END COMPRESSION CONFIGURATION
+
+SMS_USER = environ.get('SMS_USER')
+SMS_PASSWORD = environ.get('SMS_PASSWORD')
+sms_code = "0793330319"
