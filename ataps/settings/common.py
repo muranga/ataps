@@ -202,16 +202,13 @@ THIRD_PARTY_APPS = (
 
     "django_tables2",
     "selectable",
+
     # RapidSMS
     "rapidsms",
     "rapidsms.backends.database",
     "rapidsms.contrib.handlers",
     "rapidsms.contrib.httptester",
     "rapidsms.contrib.messagelog",
-    "rapidsms.contrib.messaging",
-    "rapidsms.contrib.registration",
-    "rapidsms.contrib.echo",
-    "rapidsms.contrib.default",
 
 )
 
